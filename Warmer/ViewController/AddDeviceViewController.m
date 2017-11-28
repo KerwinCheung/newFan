@@ -254,8 +254,7 @@
     }
     
     [[XLinkExportObject sharedObject] subscribeDevice:deviceModel.device andAuthKey:deviceModel.accessKey andFlag:YES];
-    
-    
+
     [[NSNotificationCenter defaultCenter] postNotificationName:kAddDevice object:deviceModel];
     
     [[XLinkExportObject sharedObject] connectDevice:deviceModel.device andAuthKey:deviceModel.device.accessKey];

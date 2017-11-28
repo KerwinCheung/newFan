@@ -42,6 +42,7 @@
 
 //中部视图
 @property (weak, nonatomic) IBOutlet UIButton *deviceOnBtn;//开机按钮
+@property (weak, nonatomic) IBOutlet UILabel *deviceOnBtnLabel;//开机按钮
 
 @property (weak, nonatomic) IBOutlet UIImageView *pm25Img;//pm2.5
 @property (weak, nonatomic) IBOutlet UIImageView *pm25ugImg;//ug/m3
@@ -249,7 +250,7 @@
 #pragma mark - bottonViewAction 底部视图动作
 - (IBAction)bottonViewAction:(UIView *)sender {
     
-    self.menuBtn.hidden = YES;
+//    self.menuBtn.hidden = YES;
     self.isShowMenu = NO;
     
     switch (sender.tag) {
@@ -535,6 +536,16 @@
         case 2:
         {
             cmd = 0x12;
+        }
+            break;
+        case 3:
+        {
+            cmd = 0x13;
+        }
+            break;
+        case 4:
+        {
+            cmd = 0x14;
         }
             break;
         default:
@@ -916,6 +927,7 @@
         {
            self.isOpen = NO;
             self.deviceOnBtn.hidden = NO;
+            self.deviceOnBtnLabel.hidden = NO;
             self.shadowView.hidden = NO;
             
             self.bottonView.userInteractionEnabled = NO;
@@ -927,6 +939,7 @@
         {
             self.isOpen = YES;
             self.deviceOnBtn.hidden = YES;
+            self.deviceOnBtnLabel.hidden = YES;
             self.shadowView.hidden = YES;
             
             self.bottonView.userInteractionEnabled = YES;
@@ -947,6 +960,7 @@
                 self.isLock = NO;
                 self.shadowView.hidden = YES;
                 self.tsOnBtn.hidden = YES;
+                self.bottonView.userInteractionEnabled = YES;
             }
                 break;
             case 1:
@@ -954,6 +968,7 @@
                 self.isLock = YES;
                 self.shadowView.hidden = NO;
                 self.tsOnBtn.hidden = NO;
+                self.bottonView.userInteractionEnabled = NO;
             }
                 break;
             default:
