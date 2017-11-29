@@ -40,6 +40,8 @@
 
 @property (nonatomic, assign) BOOL isShowMenu;//右上角菜单显示
 
+@property (nonatomic, assign) BOOL isShowFunctionView;//功能菜单
+
 //中部视图
 @property (weak, nonatomic) IBOutlet UIButton *deviceOnBtn;//开机按钮
 @property (weak, nonatomic) IBOutlet UILabel *deviceOnBtnLabel;//开机按钮
@@ -149,6 +151,7 @@
     self.isOpen = NO;
     self.isLock = NO;
     self.isShowMenu = NO;
+    self.isShowFunctionView = NO;
     
     self.automaticallyAdjustsScrollViewInsets = false;
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
@@ -250,7 +253,7 @@
 #pragma mark - bottonViewAction 底部视图动作
 - (IBAction)bottonViewAction:(UIView *)sender {
     
-//    self.menuBtn.hidden = YES;
+    self.isShowFunctionView = YES;
     self.isShowMenu = NO;
     
     switch (sender.tag) {
@@ -304,65 +307,8 @@
     self.functionView.hidden = YES;
     self.menuBtn.userInteractionEnabled = YES;
     self.shadowView.hidden = YES;
-}
-
-#pragma mark SliderChange 底部视图所有滑块变化
-- (IBAction)paifengSliderValeChange:(UISlider *)sender {
-    NSLog(@"%f",sender.value);
-    
-    if (sender == self.paifengSlider) {
-        if ((int)sender.value==0) {
-            self.paifengLabel.text = [NSString stringWithFormat:@"排风:关"];
-            return;
-        }
-        self.paifengLabel.text = [NSString stringWithFormat:@"排风:%d",(int)sender.value];
-        
-        UInt8 Status = (int)sender.value;
-        [self.deviceModel.dataPoint[5] replaceBytesInRange:NSMakeRange(0,1) withBytes:&Status length:1];
-        [SendPacketModel controlDevice:self.deviceModel.device withSendData:self.deviceModel.dataPoint[5] Command:0x07];
-        
-    }else if(sender == self.xinfengSlider){
-        if ((int)sender.value==0) {
-            self.xinfengLabel.text = [NSString stringWithFormat:@"新风:关"];
-            return;
-        }
-        self.xinfengLabel.text = [NSString stringWithFormat:@"新风:%d",(int)sender.value];
-        
-        UInt8 Status = (int)sender.value;
-        [self.deviceModel.dataPoint[4] replaceBytesInRange:NSMakeRange(0,1) withBytes:&Status length:1];
-        [SendPacketModel controlDevice:self.deviceModel.device withSendData:self.deviceModel.dataPoint[4] Command:0x06];
-        
-    }else if (sender == self.HumiditySlider){
-        if ((int)sender.value==0) {
-            self.humiditySwitchLabel.text = [NSString stringWithFormat:@"加湿(关闭)"];
-            return;
-        }
-        self.humiditySwitchLabel.text = [NSString stringWithFormat:@"加湿(%d%@)",(int)sender.value*5,@"%"];
-        
-        UInt8 Status = (int)sender.value;
-        [self.deviceModel.dataPoint[11] replaceBytesInRange:NSMakeRange(0,1) withBytes:&Status length:1];
-        [SendPacketModel controlDevice:self.deviceModel.device withSendData:self.deviceModel.dataPoint[11] Command:0x0d];
-        
-    }else if (sender == self.maintain2Slider){
-         self.maintain2Label.text = [NSString stringWithFormat:@"维护2(%d天)",(int)sender.value*5];
-        
-        UInt8 value = (int)sender.value;
-        [self.deviceModel.dataPoint[22] replaceBytesInRange:NSMakeRange(0,1) withBytes:&value length:1];
-        [SendPacketModel controlDevice:self.deviceModel.device withSendData:self.deviceModel.dataPoint[22] Command:0x16];
-        
-        
-    }else if (sender == self.maintain1Slider){
-         self.maintain1Label.text = [NSString stringWithFormat:@"维护1(%d天)",(int)sender.value*5];
-        
-        UInt8 value = (int)sender.value;
-        [self.deviceModel.dataPoint[21] replaceBytesInRange:NSMakeRange(0,1) withBytes:&value length:1];
-        [SendPacketModel controlDevice:self.deviceModel.device withSendData:self.deviceModel.dataPoint[21] Command:0x15];
-    }
-//    MaintainSlider 维护
-    
-    
-    
-    
+    self.isShowFunctionView = NO;
+    [self setUI];
 }
 
 #pragma mark SwitchChange 开关变化
@@ -567,7 +513,60 @@
     self.maintainView.hidden = YES;
 }
 
-
+#pragma mark SliderChange 底部视图所有滑块变化
+- (IBAction)paifengSliderValeChange:(UISlider *)sender {
+    NSLog(@"%f",sender.value);
+    
+    if (sender == self.paifengSlider) {
+        if ((int)sender.value==0) {
+            self.paifengLabel.text = [NSString stringWithFormat:@"排风:关"];
+            return;
+        }
+        self.paifengLabel.text = [NSString stringWithFormat:@"排风:%d",(int)sender.value];
+        
+        UInt8 Status = (int)sender.value;
+        [self.deviceModel.dataPoint[5] replaceBytesInRange:NSMakeRange(0,1) withBytes:&Status length:1];
+        [SendPacketModel controlDevice:self.deviceModel.device withSendData:self.deviceModel.dataPoint[5] Command:0x07];
+        
+    }else if(sender == self.xinfengSlider){
+        if ((int)sender.value==0) {
+            self.xinfengLabel.text = [NSString stringWithFormat:@"新风:关"];
+            return;
+        }
+        self.xinfengLabel.text = [NSString stringWithFormat:@"新风:%d",(int)sender.value];
+        
+        UInt8 Status = (int)sender.value;
+        [self.deviceModel.dataPoint[4] replaceBytesInRange:NSMakeRange(0,1) withBytes:&Status length:1];
+        [SendPacketModel controlDevice:self.deviceModel.device withSendData:self.deviceModel.dataPoint[4] Command:0x06];
+        
+    }else if (sender == self.HumiditySlider){
+        if ((int)sender.value==0) {
+            self.humiditySwitchLabel.text = [NSString stringWithFormat:@"加湿(关闭)"];
+            return;
+        }
+        self.humiditySwitchLabel.text = [NSString stringWithFormat:@"加湿(%d%@)",(int)sender.value*5,@"%"];
+        
+        UInt8 Status = (int)sender.value;
+        [self.deviceModel.dataPoint[11] replaceBytesInRange:NSMakeRange(0,1) withBytes:&Status length:1];
+        [SendPacketModel controlDevice:self.deviceModel.device withSendData:self.deviceModel.dataPoint[11] Command:0x0d];
+        
+    }else if (sender == self.maintain2Slider){
+        self.maintain2Label.text = [NSString stringWithFormat:@"维护2(%d天)",(int)sender.value*5];
+        
+        UInt8 value = (int)sender.value;
+        [self.deviceModel.dataPoint[22] replaceBytesInRange:NSMakeRange(0,1) withBytes:&value length:1];
+        [SendPacketModel controlDevice:self.deviceModel.device withSendData:self.deviceModel.dataPoint[22] Command:0x16];
+        
+        
+    }else if (sender == self.maintain1Slider){
+        self.maintain1Label.text = [NSString stringWithFormat:@"维护1(%d天)",(int)sender.value*5];
+        
+        UInt8 value = (int)sender.value;
+        [self.deviceModel.dataPoint[21] replaceBytesInRange:NSMakeRange(0,1) withBytes:&value length:1];
+        [SendPacketModel controlDevice:self.deviceModel.device withSendData:self.deviceModel.dataPoint[21] Command:0x15];
+    }
+    //    MaintainSlider 维护
+}
 
 #pragma mark - menuBtnAction 右上角菜单函数
 - (IBAction)menuBtnAction:(UIButton *)sender {
@@ -929,7 +928,6 @@
             self.deviceOnBtn.hidden = NO;
             self.deviceOnBtnLabel.hidden = NO;
             self.shadowView.hidden = NO;
-            
             self.bottonView.userInteractionEnabled = NO;
             self.tsOffBtn.userInteractionEnabled = NO;
             self.tsOnBtn.userInteractionEnabled = NO;
@@ -976,7 +974,7 @@
         }
     }
 
-    if (self.isShowMenu) {
+    if (self.isShowMenu || self.isShowFunctionView) {
         self.shadowView.hidden = NO;
     }
     
@@ -990,14 +988,25 @@
         case 0:
         {
             self.xinfengImg.image = [UIImage imageNamed:@"bg_xinfeng_off"];
-            self.xinfengLabel.text = [NSString stringWithFormat:@"排风:关"];
+            self.xinfengLabel.text = [NSString stringWithFormat:@"新风:关"];
         }
             break;
-            
-        default:
+        case 11:
         {
             self.xinfengImg.image = [UIImage imageNamed:@"bg_xinfeng_on"];
-            self.xinfengLabel.text = [NSString stringWithFormat:@"排风:%d",xinfeng];
+            self.xinfengLabel.text = [NSString stringWithFormat:@"新风:%d",xinfeng];
+        }
+            break;
+        case 12:
+        {
+            self.xinfengImg.image = [UIImage imageNamed:@"bg_xinfeng_on"];
+            self.xinfengLabel.text = [NSString stringWithFormat:@"新风:%d",xinfeng];
+        }
+            break;
+        default:
+        {
+            self.xinfengImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"bg_xinfeng_on%d",xinfeng]];
+            self.xinfengLabel.text = [NSString stringWithFormat:@"新风:%d",xinfeng];
         }
             break;
     }
@@ -1012,10 +1021,21 @@
             self.paifengLabel.text = [NSString stringWithFormat:@"排风:关"];
         }
             break;
-            
+        case 11:
+        {
+            self.paifengImg.image = [UIImage imageNamed:@"bg_paifeng_on"];
+            self.paifengLabel.text = [NSString stringWithFormat:@"排风:%d",paifeng];
+        }
+            break;
+        case 12:
+        {
+            self.paifengImg.image = [UIImage imageNamed:@"bg_paifeng_on"];
+            self.paifengLabel.text = [NSString stringWithFormat:@"排风:%d",paifeng];
+        }
+            break;
         default:
         {
-            self.paifengImg.image = [UIImage imageNamed:@"bg_paifeng_off"];
+            self.paifengImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"bg_paifeng_on%d",paifeng]];
             self.paifengLabel.text = [NSString stringWithFormat:@"排风:%d",paifeng];
         }
             break;
