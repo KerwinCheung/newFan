@@ -172,7 +172,7 @@
         
         loadingView.hidden = YES;
         
-        [self showWarningAlert:@"设备配置网络失败"];
+        [self performSelectorOnMainThread:@selector(showWarningAlert:) withObject:@"设备配置网络失败" waitUntilDone:NO];
         
     } endBlock:^(NSDictionary *deviceDic) {
         

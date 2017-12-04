@@ -437,12 +437,16 @@
     [self.deviceModel.dataPoint[14] replaceBytesInRange:NSMakeRange(0,1) withBytes:&openMinuteData length:1];
     [SendPacketModel controlDeviceTiming:self.deviceModel.device withHourData:self.deviceModel.dataPoint[13] MinuteData:self.deviceModel.dataPoint[14] Command:0x0f];
     
-    //定时开
+    //定时关
     UInt8 closeHourData = (const UInt8)closeHour;
     UInt8 closeminuteData = (const UInt8)closeMinute;
     [self.deviceModel.dataPoint[15] replaceBytesInRange:NSMakeRange(0,1) withBytes:&closeHourData length:1];
      [self.deviceModel.dataPoint[16] replaceBytesInRange:NSMakeRange(0,1) withBytes:&closeminuteData length:1];
-    [SendPacketModel controlDeviceTiming:self.deviceModel.device withHourData:self.deviceModel.dataPoint[15] MinuteData:self.deviceModel.dataPoint[16] Command:0x10];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [SendPacketModel controlDeviceTiming:self.deviceModel.device withHourData:self.deviceModel.dataPoint[15] MinuteData:self.deviceModel.dataPoint[16] Command:0x10];
+    });
+    
 }
 
 - (IBAction)cancleTiming:(id)sender {
@@ -1205,10 +1209,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-
-
 
 /*
  #pragma mark - Navigation
