@@ -637,6 +637,8 @@
                                         <color key="thumbTintColor" red="0.0014177875129999999" green="0.62768805029999997" blue="0.90921473500000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="paifengSliderValeChange:" destination="Psu-Yx-O5S" eventType="valueChanged" id="0NM-Er-MLn"/>
+                                            <action selector="sliderTouchUpInside:" destination="Psu-Yx-O5S" eventType="touchUpInside" id="5ON-Ap-64z"/>
+                                            <action selector="sliderTouchUpInside:" destination="Psu-Yx-O5S" eventType="touchUpOutside" id="Zcd-jW-u0q"/>
                                         </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="排风:8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YsW-TJ-JJz">
@@ -656,6 +658,8 @@
                                         <color key="thumbTintColor" red="0.0014177875129999999" green="0.62768805029999997" blue="0.90921473500000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="paifengSliderValeChange:" destination="Psu-Yx-O5S" eventType="valueChanged" id="j4F-ge-bd7"/>
+                                            <action selector="sliderTouchUpInside:" destination="Psu-Yx-O5S" eventType="touchUpInside" id="SQy-PR-6Q6"/>
+                                            <action selector="sliderTouchUpInside:" destination="Psu-Yx-O5S" eventType="touchUpOutside" id="x9q-HS-Bf7"/>
                                         </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新风:8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nza-dZ-duf">
@@ -669,6 +673,8 @@
                                         <color key="thumbTintColor" red="0.0014177875129999999" green="0.62768805029999997" blue="0.90921473500000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="paifengSliderValeChange:" destination="Psu-Yx-O5S" eventType="valueChanged" id="vTs-c2-9ad"/>
+                                            <action selector="sliderTouchUpInside:" destination="Psu-Yx-O5S" eventType="touchUpInside" id="MNQ-9f-Kos"/>
+                                            <action selector="sliderTouchUpInside:" destination="Psu-Yx-O5S" eventType="touchUpOutside" id="Uf1-3g-ZfR"/>
                                         </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="加湿(关闭)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRS-kn-IgU">
@@ -1154,6 +1160,8 @@
                                         <color key="thumbTintColor" red="0.0014177875129999999" green="0.62768805029999997" blue="0.90921473500000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="paifengSliderValeChange:" destination="Psu-Yx-O5S" eventType="valueChanged" id="Wg8-FW-WcZ"/>
+                                            <action selector="sliderTouchUpInside:" destination="Psu-Yx-O5S" eventType="touchUpOutside" id="Rh5-7o-sZx"/>
+                                            <action selector="sliderTouchUpInside:" destination="Psu-Yx-O5S" eventType="touchUpInside" id="UFG-n9-yUF"/>
                                         </connections>
                                     </slider>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="12" minValue="1" maxValue="199" translatesAutoresizingMaskIntoConstraints="NO" id="XHd-j5-G6g">
@@ -1162,6 +1170,8 @@
                                         <color key="thumbTintColor" red="0.0014177875129999999" green="0.62768805029999997" blue="0.90921473500000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="paifengSliderValeChange:" destination="Psu-Yx-O5S" eventType="valueChanged" id="OuP-gR-eoI"/>
+                                            <action selector="sliderTouchUpInside:" destination="Psu-Yx-O5S" eventType="touchUpInside" id="WUJ-fq-BMv"/>
+                                            <action selector="sliderTouchUpInside:" destination="Psu-Yx-O5S" eventType="touchUpOutside" id="j1W-7v-e8c"/>
                                         </connections>
                                     </slider>
                                 </subviews>

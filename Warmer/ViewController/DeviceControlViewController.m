@@ -195,6 +195,7 @@
 
         self.isOpen = YES;
         self.shadowView.hidden = YES;
+        self.isShowFunctionView = NO;
         
         UInt8 Status = 0x01;
         [self.deviceModel.dataPoint[0] replaceBytesInRange:NSMakeRange(0,1) withBytes:&Status length:1];
@@ -262,7 +263,6 @@
             //开关
             self.isOpen = NO;
             self.shadowView.hidden = NO;
-            
             UInt8 Status = 0x00;
             [self.deviceModel.dataPoint[0] replaceBytesInRange:NSMakeRange(0,1) withBytes:&Status length:1];
             [SendPacketModel controlDevice:self.deviceModel.device withSendData:self.deviceModel.dataPoint[0] Command:0x03];
@@ -302,7 +302,7 @@
 }
 
 #pragma mark 功能相关
-#pragma mark 功能返回
+#pragma mark 功能视图返回按钮
 - (IBAction)functionBack:(id)sender {
     self.functionView.hidden = YES;
     self.menuBtn.userInteractionEnabled = YES;
@@ -313,9 +313,7 @@
 
 #pragma mark SwitchChange 开关变化
 - (IBAction)functionSwitchValueChange:(UISwitch *)sender {
-    
     UInt8 Status;
-    
     if (sender == self.HumiditySwitch) {
         if (sender.isOn) {
             Status = 0x01;
@@ -326,39 +324,30 @@
             self.HumiditySlider.userInteractionEnabled = NO;
             self.humiditySwitchLabel.text = [NSString stringWithFormat:@"加湿(关闭)"];
         }
-        
         [self.deviceModel.dataPoint[10] replaceBytesInRange:NSMakeRange(0,1) withBytes:&Status length:1];
         [SendPacketModel controlDevice:self.deviceModel.device withSendData:self.deviceModel.dataPoint[10] Command:0x0c];
     }else if (sender == self.chushuangSwitch){
-        
         if (sender.isOn) {
             Status = 0x01;
         }else{
             Status = 0x00;
         }
-        
         [self.deviceModel.dataPoint[12] replaceBytesInRange:NSMakeRange(0,1) withBytes:&Status length:1];
         [SendPacketModel controlDevice:self.deviceModel.device withSendData:self.deviceModel.dataPoint[12] Command:0x0e];
-        
     }else if (sender == self.shajunSwitch){
-        
         if (sender.isOn) {
             Status = 0x01;
         }else{
             Status = 0x00;
         }
-        
         [self.deviceModel.dataPoint[9] replaceBytesInRange:NSMakeRange(0,1) withBytes:&Status length:1];
         [SendPacketModel controlDevice:self.deviceModel.device withSendData:self.deviceModel.dataPoint[9] Command:0x0b];
-        
     }else if (sender == self.fuliziSwitch){
-        
         if (sender.isOn) {
             Status = 0x01;
         }else{
             Status = 0x00;
         }
-        
         [self.deviceModel.dataPoint[8] replaceBytesInRange:NSMakeRange(0,1) withBytes:&Status length:1];
         [SendPacketModel controlDevice:self.deviceModel.device withSendData:self.deviceModel.dataPoint[8] Command:0x0a];
         
@@ -514,8 +503,7 @@
 }
 
 #pragma mark SliderChange 底部视图所有滑块变化
-- (IBAction)paifengSliderValeChange:(UISlider *)sender {
-    NSLog(@"%f",sender.value);
+- (IBAction)sliderTouchUpInside:(UISlider *)sender {
     
     if (sender == self.paifengSlider) {
         if ((int)sender.value==0) {
@@ -567,6 +555,12 @@
     }
     //    MaintainSlider 维护
 }
+
+- (IBAction)paifengSliderValeChange:(UISlider *)sender {
+    //拖动时数值变化
+}
+
+
 
 #pragma mark - menuBtnAction 右上角菜单函数
 - (IBAction)menuBtnAction:(UIButton *)sender {
