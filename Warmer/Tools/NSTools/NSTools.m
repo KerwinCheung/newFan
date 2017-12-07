@@ -76,7 +76,7 @@
 #pragma mark 手机号码正则表达式
 +(BOOL)validatePhone:(NSString *)phone{
     
-    NSString *regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+    NSString *regex = @"^((13[0-9])|(177)|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     return [pred evaluateWithObject:phone];
 }
