@@ -427,15 +427,15 @@
     self.shadowView.hidden = YES;
     self.timingView.hidden = YES;
     //启动定时
-    NSLog(@"定时关 %d小时 %d分钟",closeHour,closeMinute);
-    NSLog(@"定时开 %d小时 %d分钟",openHour,openMinute);
-    
-    //定时开
-    UInt8 openHourData = (const UInt8)openHour;
-    UInt8 openMinuteData = (const UInt8)openMinute;
-    [self.deviceModel.dataPoint[13] replaceBytesInRange:NSMakeRange(0,1) withBytes:&openHourData length:1];
-    [self.deviceModel.dataPoint[14] replaceBytesInRange:NSMakeRange(0,1) withBytes:&openMinuteData length:1];
-    [SendPacketModel controlDeviceTiming:self.deviceModel.device withHourData:self.deviceModel.dataPoint[13] MinuteData:self.deviceModel.dataPoint[14] Command:0x0f];
+//    NSLog(@"定时关 %d小时 %d分钟",closeHour,closeMinute);
+//    NSLog(@"定时开 %d小时 %d分钟",openHour,openMinute);
+//
+//    //定时开
+//    UInt8 openHourData = (const UInt8)openHour;
+//    UInt8 openMinuteData = (const UInt8)openMinute;
+//    [self.deviceModel.dataPoint[13] replaceBytesInRange:NSMakeRange(0,1) withBytes:&openHourData length:1];
+//    [self.deviceModel.dataPoint[14] replaceBytesInRange:NSMakeRange(0,1) withBytes:&openMinuteData length:1];
+//    [SendPacketModel controlDeviceTiming:self.deviceModel.device withHourData:self.deviceModel.dataPoint[13] MinuteData:self.deviceModel.dataPoint[14] Command:0x0f];
     
     //定时关
     UInt8 closeHourData = (const UInt8)closeHour;
@@ -443,9 +443,9 @@
     [self.deviceModel.dataPoint[15] replaceBytesInRange:NSMakeRange(0,1) withBytes:&closeHourData length:1];
      [self.deviceModel.dataPoint[16] replaceBytesInRange:NSMakeRange(0,1) withBytes:&closeminuteData length:1];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [SendPacketModel controlDeviceTiming:self.deviceModel.device withHourData:self.deviceModel.dataPoint[15] MinuteData:self.deviceModel.dataPoint[16] Command:0x10];
-    });
+    
+    [SendPacketModel controlDeviceTiming:self.deviceModel.device withHourData:self.deviceModel.dataPoint[15] MinuteData:self.deviceModel.dataPoint[16] Command:0x10];
+    
     
 }
 
@@ -1070,10 +1070,10 @@
     UInt8 shajun = ((const UInt8 *)_deviceModel.dataPoint[9].bytes)[0];
     switch (shajun) {
         case 0:
-            [self.HumiditySwitch setOn:NO];
+            [self.shajunSwitch setOn:NO];
             break;
         case 1:
-            [self.HumiditySwitch setOn:YES];
+            [self.shajunSwitch setOn:YES];
             break;
         default:
             break;

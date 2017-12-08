@@ -118,12 +118,14 @@
     
     [self.view endEditing:YES];
     
-    [self savePassword];
-    
     if (!self.SSID) {
         [self showWarningAlert:@"手机没有连接Wifi"];
         return;
     }
+    
+    [self savePassword];
+    
+    
     
     [self starLink];
 }
